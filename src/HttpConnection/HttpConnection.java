@@ -30,10 +30,10 @@ public class HttpConnection {
 
         connection.setRequestProperty("Cookie", session);
         connection.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-        wr.writeBytes(urlParameters);
-        wr.flush();
-        wr.close();
+        DataOutputStream sendPayLoad = new DataOutputStream(connection.getOutputStream());
+        sendPayLoad.writeBytes(urlParameters);
+        sendPayLoad.flush();
+        sendPayLoad.close();
     }
 
     public void displayResponse(HttpsURLConnection connection, String url, String payload) throws IOException {
