@@ -1,10 +1,9 @@
-package AplicationsConfirgurations.He;
-
-import HttpConnection.HttpConnection;
-import payload.He.HeUrl;
-import payload.He.HeUrlParameters;
+package ApplicationsConfirgurations.He;
 
 import javax.net.ssl.HttpsURLConnection;
+import HttpConnection.HttpConnection;
+import Payload.He.HeUrlParameters;
+import Payload.He.HeUrl;
 
 public class HeLogin {
     HttpConnection con;

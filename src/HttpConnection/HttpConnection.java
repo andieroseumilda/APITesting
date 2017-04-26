@@ -1,8 +1,7 @@
 package HttpConnection;
 
-import payload.He.HeUrl;
-import payload.He.HeUrlParameters;
-
+import Payload.He.HeUrlParameters;
+import Payload.He.HeUrl;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -38,6 +37,7 @@ public class HttpConnection {
     }
 
     public void displayResponse(HttpsURLConnection connection, String url, String payload) throws IOException {
+
         int responseCode = connection.getResponseCode();
         System.out.println("\nSending 'POST' request to URL : " + url);
         System.out.println("Post parameters : " + payload);

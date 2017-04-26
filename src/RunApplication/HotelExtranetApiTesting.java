@@ -1,7 +1,7 @@
 package RunApplication;
 
-import AplicationsConfirgurations.He.HeFacility;
-import AplicationsConfirgurations.He.HeLogin;
+import ApplicationsConfirgurations.He.HeFacility;
+import ApplicationsConfirgurations.He.HeLogin;
 
 public class HotelExtranetApiTesting {
 

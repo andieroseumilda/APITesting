@@ -1,8 +1,8 @@
-package AplicationsConfirgurations.He;
+package ApplicationsConfirgurations.He;
 
 import HttpConnection.HttpConnection;
-import payload.He.HeUrl;
-import payload.He.HeUrlParameters;
+import Payload.He.HeUrlParameters;
+import Payload.He.HeUrl;
 
 import javax.net.ssl.HttpsURLConnection;
 
