@@ -2,32 +2,31 @@ package ApplicationsConfirgurations.He;
 
 import javax.net.ssl.HttpsURLConnection;
 import HttpConnection.HttpConnection;
-import Payload.He.HeUrlParameters;
+import Payload.He.HePayload;
 import Payload.He.HeUrl;
 
 public class HeLogin {
     HttpConnection con;
-    HeUrlParameters getData;
+    HePayload getData;
     HeUrl getHeUrl;
 
     public HeLogin(){
         con = new HttpConnection();
         getHeUrl = new HeUrl();
-        getData = new HeUrlParameters();
+        getData = new HePayload();
     }
 
-    public String loginToHotelierExtranet() throws Exception {
+    public String loginToHotelierExtranet(String usernameAndPassword) throws Exception {
 
         // Send POST Request
         String heLogInUrl = getHeUrl.HeLoginUrl();
         HttpsURLConnection connection = con.httpHeConnection(heLogInUrl);
 
         // Sending Data to Server
-        String sendData = getData.heLoginPayload();
-        con.sendParameters(connection,sendData, null);
+        con.sendParameters(connection,usernameAndPassword, null);
 
         // Display and Check Response
-        con.displayResponse(connection, heLogInUrl, sendData);
+        con.displayResponse(connection, heLogInUrl, usernameAndPassword);
 
         // Getting the Session ID to manipuluate data in HE
         String cookieValue = con.getCookie(connection);

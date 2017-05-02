@@ -1,7 +1,9 @@
 package HttpConnection;
 
-import Payload.He.HeUrlParameters;
+import Payload.He.HePayload;
 import Payload.He.HeUrl;
+import org.json.JSONException;
+
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -11,13 +13,15 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+
+
 public class HttpConnection {
     HeUrl getHeUrl;
-    HeUrlParameters getData;
+    HePayload getData;
 
     public HttpConnection(){
         getHeUrl = new HeUrl();
-        getData = new HeUrlParameters();
+        getData = new HePayload();
     }
 
     public HttpsURLConnection httpHeConnection(String setUrl) throws IOException {
@@ -27,7 +31,6 @@ public class HttpConnection {
     }
 
     public void sendParameters(HttpsURLConnection connection, String urlParameters, String session) throws IOException {
-
         connection.setRequestProperty("Cookie", session);
         connection.setDoOutput(true);
         DataOutputStream sendPayLoad = new DataOutputStream(connection.getOutputStream());
@@ -36,24 +39,31 @@ public class HttpConnection {
         sendPayLoad.close();
     }
 
-    public void displayResponse(HttpsURLConnection connection, String url, String payload) throws IOException {
-
+    public void displayResponse(HttpsURLConnection connection, String url, String payload) throws IOException, JSONException {
         int responseCode = connection.getResponseCode();
         System.out.println("\nSending 'POST' request to URL : " + url);
         System.out.println("Post parameters : " + payload);
         System.out.println("Response Code : " + responseCode);
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        //print result
-        System.out.println(response.toString());
     }
+
+    public String jsonFormat(HttpsURLConnection connection) throws IOException, JSONException {
+        StringBuffer response;
+        String getResponse;
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+        }
+        //print result
+        getResponse = response.toString();
+        System.out.println(getResponse);
+        return  getResponse;
+    }
+
 
     public String getCookie(HttpsURLConnection connection){
         Map<String, List<String>> RequestHeaderFields = connection.getHeaderFields();
@@ -71,4 +81,6 @@ public class HttpConnection {
         }
         return cookieSessionValue;
     }
+
+
 }

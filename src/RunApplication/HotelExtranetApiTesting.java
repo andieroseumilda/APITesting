@@ -2,6 +2,7 @@ package RunApplication;
 
 import ApplicationsConfirgurations.He.HeFacility;
 import ApplicationsConfirgurations.He.HeLogin;
+import Payload.He.HePayload;
 
 public class HotelExtranetApiTesting {
 
@@ -9,12 +10,18 @@ public class HotelExtranetApiTesting {
 
         HeLogin httpLogin = new HeLogin();
         HeFacility facility = new HeFacility();
+        HePayload payload = new HePayload();
 
         //Log-in in HE and get the Session ID
-        String sessionID = httpLogin.loginToHotelierExtranet();
+        String usernameAndPassword = payload.heLoginPayload();
+        String sessionID = httpLogin.loginToHotelierExtranet(usernameAndPassword);
 
         // Passing session ID to manipulate data in HE
-        facility.addFacility(sessionID);
+        String facility_name = payload.heFacility();
+        String facility_id = facility.addFacility(sessionID, facility_name);
+
+        //Delete facility ID
+        facility.deleteFacility(sessionID, facility_id);
     }
 
 }
