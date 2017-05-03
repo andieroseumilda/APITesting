@@ -30,19 +30,30 @@ public class HttpConnection {
         return connection;
     }
 
-    public void sendParameters(HttpsURLConnection connection, String urlParameters, String session) throws IOException {
+    public void sendParameters(HttpsURLConnection connection, String urlParameters, String session, String httpRequest) throws IOException {
         connection.setRequestProperty("Cookie", session);
         connection.setDoOutput(true);
         DataOutputStream sendPayLoad = new DataOutputStream(connection.getOutputStream());
-        sendPayLoad.writeBytes(urlParameters);
-        sendPayLoad.flush();
+
+        if(httpRequest == "POST") {
+            sendPayLoad.writeBytes(urlParameters);
+            sendPayLoad.flush();
+        }
         sendPayLoad.close();
     }
 
-    public void displayResponse(HttpsURLConnection connection, String url, String payload) throws IOException, JSONException {
+    public void displayResponse(HttpsURLConnection connection, String url, String payload, String httpRequest) throws IOException, JSONException {
+        int responseCode = connection.getResponseCode();
+        System.out.println("\nSending request to URL : " + url);
+        if(httpRequest.equalsIgnoreCase("POST")) {
+            System.out.println("Post parameters : " + payload);
+        }
+        System.out.println("Response Code : " + responseCode);
+    }
+
+    public void getDisplayResponse(HttpsURLConnection connection, String url) throws IOException, JSONException {
         int responseCode = connection.getResponseCode();
         System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Post parameters : " + payload);
         System.out.println("Response Code : " + responseCode);
     }
 
@@ -60,7 +71,7 @@ public class HttpConnection {
         }
         //print result
         getResponse = response.toString();
-        System.out.println(getResponse);
+//        System.out.println(getResponse);
         return  getResponse;
     }
 

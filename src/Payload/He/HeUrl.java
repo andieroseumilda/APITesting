@@ -15,4 +15,9 @@ public class HeUrl {
         String url = "https://uat-hi.directwithhotels.com/facility/deleteFacility";
         return url;
     }
+
+    public  String listOfFacility(){
+        String url = "https://uat-hi.directwithhotels.com/facility/read";
+        return url;
+    }
 }
